@@ -1,0 +1,1304 @@
+/* Base Styles */
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  font-family: 'Poppins', sans-serif; /* Use Poppins font */
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+}
+
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0; /* Start completely transparent */
+        transform: translateY(20px); /* Start 20px below final position */
+    }
+    to {
+        opacity: 1; /* End completely opaque */
+        transform: translateY(0); /* End at original vertical position */
+    }
+}
+
+/* Temporary Borders for Debugging Layout Shifts */
+/* body, html, .app, .container,
+.input-group, .search-undo-controls,
+.tags-list-container, .note-list,
+.note-card, .note-card-display,
+.note-card strong, .note-card p, .note-card small,
+.note-card .button-group, .note-tags-holes {
+    border: 1px solid red !important;
+    box-sizing: border-box !important;
+  } */
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px; /* Slightly larger border-radius */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for dark mode */
+}
+
+h1 {
+  /* Remove text-align if it was making the h1 itself centered, the flex parent handles layout */
+  /* text-align: center; */
+
+  /* Remove or set margin-bottom to 0, as the parent .header-area manages spacing below */
+  margin-bottom: 0;
+
+  /* Keep other h1 styles like color, font-weight, font-size */
+  font-size: 2.2em;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.3s ease;
+
+  /* If you want the h1 to take up space and push the toggle, you could add flex-grow: 1;
+     but with space-between, it's usually not needed and might affect centering. */
+}
+
+/* Input & Button */
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Slightly larger gap */
+  justify-content: center;
+  margin-bottom: 30px; /* More space below inputs */
+  align-items: center; /* Vertically align items */
+}
+
+/* --- More Modern Styles for Text Inputs --- */
+/* Target inputs specifically within .input-group */
+.input-group input,
+.input-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #d1d1d1; /* Subtle default border */
+    border-radius: 6px;
+    flex-grow: 1;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9; /* Slight off-white background */
+    min-width: 200px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    outline: none;
+}
+
+/* Placeholder text style */
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #a0a0a0; /* Lighter, softer placeholder color */
+    opacity: 1; /* Ensure placeholder is not transparent in some browsers */
+    transition: color 0.3s ease;
+}
+
+/* Hover state - Refined Colors & Dominant Shadow */
+.input-group input:hover,
+.input-group textarea:hover {
+    border-color: #b0b0b0;
+    background-color: #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15); /* More dominant shadow */
+}
+
+/* Focus state - Refined Colors & Dominant Shadow */
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4); /* More dominant shadow */
+    background-color: #fff;
+    color: #333;
+}
+
+
+button {
+  padding: 12px 25px; /* Slightly more padding for buttons */
+  border: none;
+  border-radius: 6px; /* Match input border-radius */
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease, box-shadow 0.2s ease; /* Added box-shadow transition */
+  font-family: 'Poppins', sans-serif; /* Use Poppins font */
+  font-weight: 600;
+  letter-spacing: 0.5px; /* Slight letter spacing */
+  text-transform: uppercase; /* Uppercase text */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle button shadow */
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* More pronounced shadow on hover */
+}
+
+button:active {
+    transform: translateY(0); /* Reset transform on click */
+    opacity: 0.9;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Style for disabled buttons */
+button:disabled {
+    opacity: 0.5; /* Make it semi-transparent */
+    cursor: not-allowed; /* Change cursor on hover */
+    /* You might also want to change the background color */
+    /* background-color: #ccc; */
+}
+
+/* Optional: Add some margin to the undo button if needed for spacing */
+/* button { margin-right: 10px; } */
+
+
+/* --- Custom Checkbox Styling (for "Pin Note") --- */
+/* Hide the default checkbox */
+.pin-checkbox-container input {
+  display: none;
+}
+
+/* Container for the checkbox and label, add flex styles here */
+.pin-checkbox-container {
+    display: flex; /* Use flex for alignment */
+    align-items: center; /* Vertically align */
+    gap: 8px; /* Slightly larger gap */
+    flex-grow: 0; /* Don't let this item grow in the input-group flex container */
+    min-width: auto; /* Prevent inheriting min-width */
+    padding: 12px 0; /* Match vertical padding of inputs for alignment */
+}
+
+
+/* Style the custom checkbox indicator using the label */
+.pin-checkbox-container label {
+  position: relative;
+  padding-left: 28px; /* More space for the custom checkbox */
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333; /* Default text color */
+  /* Inherit other text styles like font-family */
+  transition: color 0.3s ease; /* Smooth transition for dark mode */
+  /* Remove default label styles if any */
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Create the custom checkbox square */
+.pin-checkbox-container label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px; /* Slightly larger box */
+  height: 20px; /* Slightly larger box */
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 4px; /* Match input border-radius */
+  transition: all 0.2s ease;
+}
+
+/* Style the checkmark (initially hidden) */
+.pin-checkbox-container label::after {
+  content: '\2713'; /* Unicode checkmark character */
+  position: absolute;
+  left: 4px; /* Adjust position */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px; /* Adjust size */
+  line-height: 1; /* Ensure vertical centering */
+  color: white; /* Checkmark color */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.2s ease;
+}
+
+/* Show checkmark when checked - use the adjacent sibling selector on input */
+.pin-checkbox-container input[type="checkbox"]:checked + label::after {
+  opacity: 1;
+}
+
+/* Style the custom checkbox square when checked - use the adjacent sibling selector on input */
+.pin-checkbox-container input[type="checkbox"]:checked + label::before {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+
+/* Notes List */
+.note-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px; /* Increased gap between notes */
+  padding: 0;
+  list-style-type: none;
+}
+
+.note-card {
+  background-color: #fff; /* White background for note cards */
+  padding: 20px; /* Increased padding */
+  border-radius: 8px; /* Match container border-radius */
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle note card shadow */
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Added color transition */
+  position: relative; /* Needed for pin icon positioning */
+  border: 1px solid #eee; /* Very light border */
+
+  /* --- Add Animation --- */
+  opacity: 0; /* Start hidden before animation */
+  animation: fadeInSlideUp 0.5s ease forwards; /* Apply animation: name duration easing fill-mode */
+  /* animation-delay is set dynamically in App.js */
+}
+
+.note-card:hover {
+  transform: translateY(-5px); /* Lift slightly on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+}
+
+.note-card strong {
+  display: block;
+  margin-bottom: 8px; /* More space below title */
+  font-weight: 600; /* Poppins Bold */
+  font-size: 1.1em; /* Slightly larger title */
+  font-size: 1.15em; /* Make title slightly larger/more prominent */
+  margin-bottom: 6px; /* Slightly less space below title */
+}
+
+.note-card p {
+  margin: 10px 0;
+  flex-grow: 1; /* Let description take available space */
+  line-height: 1.5; /* Improved readability */
+  margin: 8px 0; /* Slightly less vertical margin for description */
+  line-height: 1.6; /* Ensure good line height */
+}
+
+.note-card small {
+  color: #888;
+  font-size: 0.85rem;
+  transition: color 0.3s ease; /* Added color transition */
+  display: block; /* Ensure timestamp is on its own line */
+  margin-top: 10px; /* Space above timestamp */
+  font-size: 0.8rem; /* Slightly smaller timestamp */
+  color: #999; /* Slightly lighter color for timestamp */
+  margin-top: 10px;
+}
+
+.note-card .button-group { /* Wrapper for buttons */
+    margin-top: 15px; /* More space above buttons */
+    display: flex;
+    gap: 8px; /* Space between buttons */
+}
+
+.note-card .button-group button { /* Style buttons inside note card */
+     padding: 8px 15px; /* Adjusted padding */
+     font-size: 0.9rem;
+     margin-right: 0; /* Remove margin-right */
+     text-transform: none; /* Not uppercase */
+     letter-spacing: normal; /* Normal spacing */
+     box-shadow: none; /* Remove shadow for small buttons */
+     transition: background-color 0.3s ease, transform 0.1s ease, opacity 0.3s ease; /* Faster transition */
+}
+.note-card .button-group button:hover {
+    transform: none; /* No lift */
+    box-shadow: none;
+}
+
+/* Styles for inputs/textarea in spot edit mode */
+.note-card-edit input[type="text"],
+.note-card-edit textarea {
+    /* Inherit or define styles */
+    padding: 8px 10px; /* Smaller padding within the card */
+    margin-bottom: 10px; /* Space between fields */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Fill container width */
+    box-sizing: border-box; /* Include padding/border in width */
+    font-family: inherit; /* Inherit font from note card */
+    font-size: inherit; /* Inherit font size from note card */
+    color: inherit; /* Inherit text color */
+    background-color: #f9f9f9; /* Light background */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.dark-mode .note-card-edit input[type="text"],
+.dark-mode .note-card-edit textarea {
+    background-color: #3a3a3a; /* Dark background */
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+.dark-mode .note-card small {
+    color: #b0b0b0; /* Lighter color in dark mode */
+}
+
+/* Optional: Style for the note card itself in edit mode */
+.note-card-edit {
+    display: flex;
+    flex-direction: column;
+    /* You might want different padding or border for the edit state */
+}
+
+/* Adjust button group margin within edit mode */
+.note-card-edit .button-group {
+    margin-top: 0; /* Adjust spacing */
+}
+
+/* Style for the Save/Cancel buttons */
+/*.note-card-edit .button-group button {*/
+    /* You can give Save/Cancel different colors if desired */
+/*}*/
+
+
+
+/* Dark Mode */
+.dark-mode {
+  background-color: #121212; /* Deeper dark background */
+  color: #e0e0e0; /* Lighter text for contrast */
+}
+
+.dark-mode .container {
+  background-color: #1e1e1e; /* Darker container */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* More pronounced shadow */
+}
+
+/* --- Dark Mode Styles for Inputs --- */
+.dark-mode .input-group input,
+.dark-mode .input-group textarea {
+  background-color: #2a2a2a; /* Darker input background */
+  color: #e0e0e0; /* Lighter input text */
+  border-color: #444; /* Darker border */
+}
+
+.dark-mode .input-group input::placeholder,
+.dark-mode .input-group textarea::placeholder {
+    color: #888;
+}
+
+/* Dark Mode Input Hover state - Dominant Shadow */
+.dark-mode .input-group input:hover,
+.dark-mode .input-group textarea:hover {
+    border-color: #666;
+    background-color: #3a3a3a;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5); /* More dominant shadow */
+}
+
+/* Dark Mode Input Focus state - Dominant Shadow */
+.dark-mode .input-group input:focus,
+.dark-mode .input-group textarea:focus {
+    border-color: #00b0ff;
+    box-shadow: 0 5px 18px rgba(0, 176, 255, 0.6); /* More dominant shadow */
+    background-color: #3a3a3a;
+    color: #e0e0e0; /* Ensure light text on focus */
+}
+
+
+.dark-mode .note-card {
+  background-color: #2a2a2a; /* Darker note card background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  color: #e0e0e0; /* Ensure note card text is light */
+  border-color: #3a3a3a;
+}
+
+.dark-mode .note-card small {
+  color: #b0b0b0;
+}
+
+.dark-mode h1 {
+  color: #e0e0e0;
+}
+
+.dark-mode button {
+  background-color: #444;
+  color: #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.dark-mode button:hover {
+  background-color: #666;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.dark-mode button:active {
+     box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+.dark-mode .note-card .button-group button {
+    background-color: #555;
+    color: #e0e0e0;
+}
+.dark-mode .note-card .button-group button:hover {
+     background-color: #777;
+}
+
+
+/* --- Dark Mode Checkbox Styling --- */
+.dark-mode .pin-checkbox-container label {
+    color: #e0e0e0;
+}
+
+.dark-mode .pin-checkbox-container label::before {
+    border-color: #666;
+    background-color: #3a3a3a;
+}
+
+.dark-mode .pin-checkbox-container input[type="checkbox"]:checked + label::before {
+  background-color: #00b0ff;
+  border-color: #00b0ff;
+}
+
+.header-area {
+  display: flex;
+  align-items: center;           /* vertically align title and toggle */
+  justify-content: space-between; /* space between title (left) and toggle (right) */
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+
+/* Container around the toggle */
+.dark-mode-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Main switch wrapper */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 30px;
+}
+
+/* Hide default checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Slider track */
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: gold;
+  border-radius: 30px;
+  transition: background-color 0.4s;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* SUN icon (default light mode) */
+.slider::before {
+  content: '☀️';
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  /* background-color: rgb(245, 245, 245); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 1;
+  opacity: 1;
+  transition: 0.4s ease, opacity 0.3s ease;
+}
+
+/* MOON icon (dark mode) */
+.slider::after {
+  content: '🌙';
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  /* background-color: rgb(29, 21, 21); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 1;
+  opacity: 0;
+  transition: 0.4s ease, opacity 0.3s ease;
+}
+
+/* When checked, move both icons */
+.switch input:checked + .slider::before {
+  transform: translateX(40px);
+  opacity: 0;
+}
+
+.switch input:checked + .slider::after {
+  transform: translateX(40px);
+  opacity: 1;
+}
+
+/* Change track color when dark mode is active */
+.switch input:checked + .slider {
+  background-color: black;
+}
+
+/* Optional: If you're using a dark mode class on the body for styling 
+.dark-mode .slider::before,
+.dark-mode .slider::after {
+  background-color: black 
+}*/
+
+
+/* Search Input */
+.search-input {
+  padding: 12px 15px;
+  margin: 25px auto;
+  display: block;
+  width: calc(100% - 30px);
+  max-width: 450px;
+  border-radius: 6px;
+  border: 1px solid #d1d1d1;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  outline: none;
+}
+
+/* Placeholder style for search input */
+.search-input::placeholder {
+    color: #a0a0a0;
+    opacity: 1;
+    transition: color 0.3s ease;
+}
+
+/* Hover state for search input - Mirroring Input Styles */
+.search-input:hover {
+    border-color: #b0b0b0;
+    background-color: #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15); /* More dominant shadow */
+}
+
+/* Focus state for search input - Mirroring Input Styles */
+.search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4); /* More dominant shadow */
+    background-color: #fff;
+    color: #333;
+}
+
+
+.dark-mode .search-input {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #444;
+}
+.dark-mode .search-input::placeholder {
+    color: #888;
+}
+/* Dark Mode Search Input Hover state - Mirroring Input Styles */
+.dark-mode .search-input:hover {
+    border-color: #666;
+    background-color: #3a3a3a;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5); /* More dominant shadow */
+}
+/* Dark Mode Search Input Focus state - Mirroring Input Styles */
+.dark-mode .search-input:focus {
+    border-color: #00b0ff;
+    box-shadow: 0 5px 18px rgba(0, 176, 255, 0.6); /* More dominant shadow */
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+
+/* Tags Section */
+.tags-list-container {
+  margin-top: 35px;
+  text-align: center;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+/* Style for the tags in the filter list to accommodate numbers */
+.tags-list .tag {
+    /* Keep some existing styles like padding, border-radius, font-size */
+    padding: 6px 10px; /* Adjust padding */
+    font-size: 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+    /* Added styles to make it look like a distinct tag with number */
+    background-color: #e0e0e0; /* Lighter default tag background */
+    border: 1px solid #ccc;
+    color: #333; /* Darker tag text */
+    box-shadow: none; /* Remove shadow from filter tags */
+    display: inline-block; /* Ensure padding/margin works */
+    margin: 0 5px 5px 0; /* Add some margin around tags in the list */
+}
+.tags-list .tag:hover {
+    background-color: #d5d5d5;
+    transform: translateY(-2px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow on hover */
+}
+.tags-list .tag.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+     box-shadow: 0 1px 4px rgba(0, 123, 255, 0.4);
+}
+.dark-mode .tags-list .tag {
+     background-color: #444;
+     color: #eee;
+     border-color: #666;
+     box-shadow: none;
+}
+.dark-mode .tags-list .tag:hover {
+    background-color: #555;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+.dark-mode .tags-list .tag.selected {
+    background-color: #0099ff;
+    border-color: #0099ff;
+    color: white;
+     box-shadow: 0 1px 4px rgba(0, 153, 255, 0.5);
+}
+
+
+/* Clear Filter */
+.clear-filter {
+  background-color: crimson;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.clear-filter:hover {
+  background-color: darkred;
+}
+.dark-mode .clear-filter {
+    background-color: #a00;
+}
+.dark-mode .clear-filter:hover {
+    background-color: #c00;
+}
+
+
+/* Pinned Notes */
+.note-card.pinned {
+  background-color: #fffacd;
+  border-left: 4px solid gold;
+}
+
+/* Style for pinned notes specifically in dark mode */
+.dark-mode .note-card.pinned {
+  background-color: #4a4020;
+  border-left-color: #ffd700;
+  color: #fff;
+}
+.dark-mode .note-card.pinned strong {
+     color: #fff;
+}
+.dark-mode .note-card.pinned small {
+    color: #ccc;
+}
+
+
+/* .pin-icon {
+  font-size: 1.2em;
+  margin-right: 5px;
+  color: gold;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+} */
+
+/* Dark mode pin icon color */
+.dark-mode .pin-icon {
+    color: #ffd700;
+}
+
+/* Add some basic responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        margin: 20px auto;
+        padding: 15px;
+        border-radius: 6px;
+    }
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+     /* Increased Specificity for inputs within .input-group in media query */
+     .input-group input, /* Changed from input[type="text"] */
+     .input-group .pin-checkbox-container {
+        min-width: unset;
+        width: 100%;
+     }
+     .input-group input, /* Changed from input[type="text"] */
+     .input-group textarea {
+         padding: 10px 12px;
+         border-radius: 4px;
+     }
+     button {
+         padding: 10px 20px;
+         border-radius: 4px;
+         font-size: 1rem;
+         letter-spacing: normal;
+         text-transform: none;
+         box-shadow: none;
+     }
+     button:hover {
+         transform: none;
+         box-shadow: none;
+     }
+     .pin-checkbox-container {
+         gap: 6px;
+         padding: 10px 0;
+     }
+     .pin-checkbox-container label {
+         padding-left: 25px;
+     }
+      .pin-checkbox-container label::before {
+         width: 18px;
+         height: 18px;
+         border-radius: 3px;
+     }
+     .pin-checkbox-container label::after {
+         left: 3px;
+         font-size: 14px;
+     }
+     .note-list {
+         grid-template-columns: 1fr;
+         gap: 15px;
+     }
+     .note-card {
+         padding: 15px;
+         border-radius: 6px;
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+     }
+     .note-card:hover {
+        transform: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+     }
+     .note-card strong {
+         font-size: 1em;
+         margin-bottom: 5px;
+     }
+     .note-card p {
+         margin: 8px 0;
+     }
+     .note-card small {
+         margin-top: 8px;
+     }
+      .note-card .button-group {
+          margin-top: 10px;
+      }
+
+
+     .search-input {
+         width: calc(100% - 24px);
+         padding: 10px 12px;
+         margin: 15px auto;
+         border-radius: 4px;
+     }
+    .tags-list-container {
+        margin-top: 20px;
+    }
+    .tags-list {
+        gap: 8px;
+        margin-top: 8px;
+        margin-bottom: 15px;
+    }
+    .tag {
+        padding: 4px 10px;
+        border-radius: 16px;
+        font-size: 13px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+    .tag:hover {
+        transform: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .pin-icon {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* Styles for the container of tag holes */
+.note-tags-holes {
+  display: flex; /* Arrange holes in a row */
+  gap: 6px; /* Space between holes */
+  margin-bottom: 10px; /* Space below the holes and before the title */
+  flex-wrap: wrap; /* Allow holes to wrap if too many */
+  align-items: center; /* Vertically align holes */
+}
+
+/* Styles for the individual tag holes (Displaying numbers) */
+.tag-hole {
+  /* Use flexbox to center the text inside the span */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+
+  width: 22px; /* Increased size for number */
+  height: 22px; /* Increased size for number */
+
+  background-color: #e0e0e0; /* Lighter default hole color (matches tag background) */
+  border-radius: 50%; /* Make it circular */
+
+  /* Subtle inset shadow for a 'punched' look */
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2),
+              inset -1px -1px 3px rgba(255,255,255,0.4);
+
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+
+  font-size: 12px; /* Font size for the number */
+  font-weight: bold; /* Make number bold */
+  color: #555; /* Default text color for the number (matches tag text) */
+  overflow: hidden;
+  flex-shrink: 0; /* Prevent holes from shrinking */
+}
+
+/* Dark mode styles for tag holes */
+.dark-mode .tag-hole {
+    background-color: #4a4a4a; /* Darker hole color in dark mode (matches dark tag background) */
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6),
+                inset -1px -1px 3px rgba(255,255,255,0.1);
+    color: #eee; /* Lighter text color in dark mode (matches dark tag text) */
+}
+
+/* Styles for pinned notes to ensure holes look good */
+.note-card.pinned .tag-hole {
+    background-color: #f0d050; /* Gold-ish color for holes on pinned notes */
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3),
+                inset -1px -1px 3px rgba(255,255,255,0.3);
+    color: #444; /* Darker text color on pinned notes in light mode */
+}
+
+.dark-mode .note-card.pinned .tag-hole {
+    background-color: #a08020; /* Darker gold-ish color on pinned notes in dark mode */
+     box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6),
+                inset -1px -1px 3px rgba(255,255,255,0.2);
+    color: #eee; /* Lighter text color on pinned notes in dark mode */
+}
+
+/* Adjust note card padding if needed to make space */
+.note-card {
+    /* ... existing styles ... */
+    padding-top: 20px; /* Ensure enough space at the top for holes */
+}
+
+
+/* Style for "No notes available" message */
+.note-list p {
+    text-align: center; /* Center the text */
+    color: #777; /* Softer color */
+    font-size: 1.1em;
+    margin-top: 40px; /* Add some space above it */
+    width: 100%; /* Ensure it takes full width in the grid */
+}
+
+.dark-mode .note-list p {
+    color: #b0b0b0; /* Lighter color in dark mode */
+}
+
+/* Custom Scrollbar Styles (Webkit Browsers like Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar handle */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the handle on hover */
+}
+
+/* Dark Mode Scrollbar */
+.dark-mode::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.dark-mode::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
+.dark-mode::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* Style for the clickable pin toggle button */
+.pin-toggle-button {
+    /* Make it look like an icon, not a standard button */
+    background: none;
+    border: none;
+    cursor: pointer; /* Indicate it's clickable */
+    font-size: 1.2em; /* Match the size of the pin emoji */
+    line-height: 1; /* Helps with vertical alignment if needed */
+    margin: 0;
+    padding: 0;
+    color: gold; /* Set the color */
+    position: absolute; /* Position like the original icon */
+    top: 15px;
+    right: 15px;
+    z-index: 2; /* Ensure it's above other content if needed */
+    transition: transform 0.2s ease, color 0.2s ease; /* Add subtle hover effects */
+    display: flex; /* Use flex to center the icon within the button area */
+    justify-content: center;
+    align-items: center;
+    width: 24px; /* Give it a clickable area */
+    height: 24px;
+}
+
+/* Optional: Add a subtle hover effect */
+.pin-toggle-button:hover {
+    transform: scale(1.1); /* Scale up slightly */
+    /* Slightly darker gold on hover (if using a CSS preprocessor, otherwise use a hex code) */
+    color: #ccac00; /* Example slightly darker gold */
+}
+
+/* Dark mode pin icon/button color */
+.dark-mode .pin-toggle-button {
+    color: #ffd700; /* Ensure color is set for dark mode */
+}
+
+/* Optional: Dark mode hover color */
+.dark-mode .pin-toggle-button:hover {
+    color: #ffc400; /* Slightly brighter gold on hover in dark mode */
+}
+
+/* Ensure the original .pin-icon rule is no longer used if you completely replaced it */
+/* If you still have a .pin-icon rule, you might want to remove it or ensure it doesn't conflict */
+
+/* Style for the clickable Pin on Hover button */
+.pin-on-hover-button {
+    /* Inherit basic button-as-icon styles from .pin-toggle-button */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    color: #ccc; /* Lighter color to indicate inactive/available */
+    position: absolute; /* Position it like the pinned icon */
+    top: 15px;
+    right: 15px;
+    z-index: 2; /* Ensure it's above other content if needed */
+    transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease; /* Add opacity transition */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px; /* Give it a clickable area */
+    height: 24px;
+
+    /* --- Hide by Default --- */
+    opacity: 0; /* Start completely transparent */
+    pointer-events: none; /* Disable clicks when hidden */
+}
+
+/* Show button when the parent note card is hovered */
+.note-card:hover .pin-on-hover-button {
+    opacity: 1; /* Fade in */
+    pointer-events: auto; /* Enable clicks when visible */
+}
+
+/* Optional: Subtle hover effect on the button itself */
+.pin-on-hover-button:hover {
+    color: #999; /* Slightly darker on hover */
+    transform: scale(1.1); /* Slight scale */
+}
+
+/* Dark mode styles for the Pin on Hover button */
+.dark-mode .pin-on-hover-button {
+    color: #777; /* Darker gray in dark mode */
+}
+
+.dark-mode .pin-on-hover-button:hover {
+    color: #999; /* Lighter on hover in dark mode */
+}
+
+/* Ensure the .pin-toggle-button (for unpinning) is styled correctly */
+/* (Code for .pin-toggle-button remains as in the previous step) */
+/* You might want to ensure its color is different/more solid than the pin-on-hover-button */
+
+/* Style for the empty state message container */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px; /* Add some internal spacing */
+    margin-top: 30px; /* Space above the message */
+    border: 1px dashed #ccc; /* Optional: Add a dashed border */
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    grid-column: 1 / -1; /* Span across all columns in the grid */
+}
+
+.empty-state p {
+    margin: 0; /* Remove default paragraph margin */
+    font-size: 1.1em;
+    color: #777;
+    font-weight: 500;
+}
+
+/* Dark mode styles for the empty state */
+.dark-mode .empty-state {
+    background-color: #2a2a2a;
+    border-color: #555;
+}
+
+.dark-mode .empty-state p {
+    color: #b0b0b0;
+}
+
+/* Style for inputs with validation errors */
+.input-group input.input-error,
+.input-group textarea.input-error,
+.search-input.input-error { /* Apply to search input if you add validation there later */
+    border-color: crimson; /* Red border for error */
+    box-shadow: 0 0 5px rgba(220, 20, 60, 0.5); /* Subtle red glow */
+}
+
+/* Style for validation error messages */
+.error-message {
+    color: crimson; /* Red text color */
+    font-size: 0.85rem;
+    margin-top: 4px; /* Space above the message */
+    display: block; /* Ensure it appears on a new line */
+    width: 100%; /* Take full width */
+    text-align: left; /* Align text left */
+}
+
+/* Optional: Adjust spacing for form fields */
+.form-field {
+    margin-bottom: 15px; /* Space below each input group */
+    flex-basis: 100%; /* Make each field take full width in flex container */
+}
+
+/* Adjust .input-group gap if using .form-field */
+.input-group {
+    /* gap: 15px; */ /* Gap might not be needed if using margin-bottom on form-field */
+    flex-direction: column; /* Stack fields vertically if using form-field basis 100% */
+    align-items: stretch; /* Stretch fields */
+}
+
+/* Revert .input-group on larger screens */
+@media (min-width: 601px) {
+     .input-group {
+         flex-direction: row; /* Back to row */
+         align-items: center; /* Vertically align */
+         gap: 15px; /* Re-add gap */
+     }
+     .form-field {
+         margin-bottom: 0; /* Remove bottom margin in row layout */
+         flex-basis: auto; /* Auto basis */
+     }
+      .input-group input,
+      .input-group textarea {
+          /* Restore flex-grow: 1 if needed for row layout */
+          flex-grow: 1;
+      }
+}
+
+@keyframes fadeOutSlideDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+        height: auto; /* Animate height if possible for slide up/down */
+        padding: 20px; /* Animate padding if needed */
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px); /* Slide down slightly */
+        height: 0; /* Collapse height */
+        padding: 0; /* Collapse padding */
+        margin-bottom: 0; /* Collapse margin */
+    }
+}
+
+.note-card.deleting {
+    animation: fadeOutSlideDown 0.5s ease forwards; /* Apply animation */
+    /* Ensure overflow: hidden; or similar is NOT on .note-list if animating height */
+}
+
+/*
+.note-card-display .note-tags-holes {
+    margin-bottom: 10px !important;
+}
+
+.note-card-display strong {
+    margin-top: 0 !important;
+    margin-bottom: 6px !important;
+}
+
+.note-card-display p {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+
+.note-card-display small {
+    margin-top: 10px !important;
+    margin-bottom: 0 !important;
+}
+
+.note-card-display .button-group {
+    margin-top: 15px !important;
+
+} */
+
+/* --- Delete Confirmation Modal Styles --- */
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed; /* Stay in place */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+    display: flex; /* Use flex to center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000; /* Ensure it's on top of everything else */
+    /* Optional: Add a fade-in animation for the overlay */
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: #fff; /* White background */
+    padding: 30px; /* Internal padding */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow */
+    max-width: 400px; /* Maximum width */
+    width: 90%; /* Responsive width */
+    text-align: center; /* Center text inside */
+    font-family: 'Poppins', sans-serif;
+
+    /* Optional: Add a subtle animation for the content */
+    transform: translateY(-20px); /* Start slightly above final position */
+    opacity: 0; /* Start invisible */
+    animation: slideDownScaleUp 0.3s ease forwards 0.1s; /* Add delay for staggered effect */
+}
+
+.modal-content h3 {
+    margin-top: 0; /* Remove default heading margin */
+    margin-bottom: 15px; /* Space below heading */
+    color: #333;
+    font-weight: 600;
+    font-size: 1.4em;
+}
+
+.modal-content p {
+    margin-bottom: 25px; /* Space below message */
+    color: #555;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center; /* Center buttons */
+    gap: 15px; /* Space between buttons */
+}
+
+.modal-buttons button {
+    /* Inherit basic button styles */
+    padding: 10px 20px; /* Adjust padding for modal buttons */
+    font-size: 1rem;
+    text-transform: none; /* Not uppercase */
+    letter-spacing: normal;
+    box-shadow: none; /* Remove default button shadow */
+}
+
+.modal-buttons button:first-child { /* Style for "Yes, Delete" button */
+    background-color: crimson; /* Red color for delete action */
+}
+
+.modal-buttons button:first-child:hover {
+    background-color: darkred;
+}
+
+.modal-buttons button:last-child { /* Style for "No, Cancel" button */
+    background-color: #ccc; /* Gray color for cancel */
+    color: #333;
+}
+
+.modal-buttons button:last-child:hover {
+     background-color: #bbb;
+}
+
+/* Dark mode for modal */
+.dark-mode .modal-content {
+    background-color: #2a2a2a;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode .modal-content h3 {
+    color: #e0e0e0;
+}
+
+.dark-mode .modal-content p {
+    color: #b0b0b0;
+}
+
+.dark-mode .modal-buttons button:last-child {
+    background-color: #555;
+    color: #e0e0e0;
+}
+.dark-mode .modal-buttons button:last-child:hover {
+    background-color: #666;
+}
+
+
+/* --- Modal Animation Keyframes --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDownScaleUp {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
